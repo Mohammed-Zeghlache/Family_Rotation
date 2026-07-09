@@ -1,0 +1,483 @@
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f5f7fa;
+  padding: 20px;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* ===== APP ===== */
+.app {
+  max-width: 1100px;
+  margin: 0 auto;
+  transition: background 0.3s, color 0.3s;
+}
+
+.app.dark {
+  background: #1a1a2e;
+  color: #eee;
+}
+
+.app.dark .calendar-wrapper,
+.app.dark .card,
+.app.dark .phone-list {
+  background: #16213e;
+  color: #eee;
+}
+
+.app.dark .cell {
+  background: #1a1a2e;
+  color: #eee;
+}
+
+.app.dark .cell.today {
+  border-color: #667eea;
+  background: #1e2a4a;
+}
+
+.app.dark .member {
+  background: #1a1a2e;
+  color: #eee;
+}
+
+.app.dark .rotation-info {
+  background: #1a1a2e;
+  color: #aaa;
+}
+
+.app.dark .phone-tag {
+  background: #1a1a2e;
+  color: #eee;
+}
+
+.app.dark .footer {
+  border-color: #333;
+  color: #666;
+}
+
+/* ===== HEADER ===== */
+.header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+.header-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.mode-btn,
+.lang-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s;
+}
+
+.mode-btn:hover,
+.lang-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ===== CONTROLS ===== */
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.controls button {
+  background: #667eea;
+  border: none;
+  color: white;
+  padding: 8px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: transform 0.2s;
+}
+
+.controls button:hover {
+  transform: scale(1.05);
+}
+
+.month-year {
+  font-size: 1.2rem;
+  font-weight: 600;
+  min-width: 120px;
+  text-align: center;
+}
+
+/* ===== BADGE ===== */
+.badge {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.badge span {
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.sent {
+  background: #10b981;
+  color: white;
+}
+
+.unsent {
+  background: #f59e0b;
+  color: white;
+}
+
+/* ===== PHONE LIST ===== */
+.phone-list {
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.phone-list h3 {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: #6b7280;
+}
+
+.phone-tag {
+  background: #e5e7eb;
+  padding: 4px 12px;
+  border-radius: 12px;
+  margin: 0 5px;
+  display: inline-block;
+  font-size: 0.85rem;
+}
+
+.no-phones {
+  color: #ef4444;
+  font-size: 0.9rem;
+}
+
+/* ===== MAIN LAYOUT ===== */
+.main {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .main {
+    grid-template-columns: 1fr;
+  }
+
+  .header h1 {
+    font-size: 1.2rem;
+  }
+}
+
+/* ===== CALENDAR ===== */
+.calendar-wrapper {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  overflow-x: auto;
+}
+
+.calendar-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  font-weight: 600;
+  color: #6b7280;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.cell {
+  background: #f9fafb;
+  border-radius: 8px;
+  padding: 8px;
+  min-height: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.cell:hover:not(.empty) {
+  transform: scale(1.02);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cell.empty {
+  background: transparent;
+  border: none;
+}
+
+.cell.today {
+  border-color: #667eea;
+  background: #eef2ff;
+}
+
+.cell.not-started {
+  opacity: 0.6;
+}
+
+.day {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+.tag {
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 600;
+  margin-top: 4px;
+  width: 100%;
+  text-align: center;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #999;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.card h3 {
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
+
+/* ===== MEMBERS ===== */
+.rotation-info {
+  background: #f3f4f6;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin-bottom: 15px;
+}
+
+.rotation-info p {
+  margin: 4px 0;
+}
+
+.rotation-info strong {
+  color: #374151;
+}
+
+.member {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 8px;
+  background: #f9fafb;
+  border-radius: 8px;
+  border-left: 4px solid;
+  transition: transform 0.2s;
+}
+
+.member:hover {
+  transform: translateX(4px);
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 12px;
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  transition: all 0.3s;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-generate {
+  background: #6366f1;
+  color: white;
+}
+
+.btn-generate:hover:not(:disabled) {
+  background: #4f46e5;
+  transform: translateY(-2px);
+}
+
+.btn-send {
+  background: #25d366;
+  color: white;
+}
+
+.btn-send:hover:not(:disabled) {
+  background: #128c7e;
+  transform: translateY(-2px);
+}
+
+.btn-sent {
+  background: #10b981;
+  color: white;
+  cursor: default;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  margin-top: 30px;
+  text-align: center;
+  padding: 20px;
+  color: #999;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  .header {
+    padding: 15px;
+  }
+
+  .header h1 {
+    font-size: 1.1rem;
+  }
+
+  .controls button {
+    padding: 6px 14px;
+    font-size: 1rem;
+  }
+
+  .month-year {
+    font-size: 1rem;
+    min-width: 90px;
+  }
+
+  .calendar-wrapper {
+    padding: 10px;
+  }
+
+  .cell {
+    min-height: 50px;
+    padding: 4px;
+  }
+
+  .day {
+    font-size: 0.7rem;
+  }
+
+  .tag {
+    font-size: 0.55rem;
+    padding: 1px 4px;
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+  .btn {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  .phone-tag {
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    margin: 2px;
+  }
+}
+
+@media (max-width: 400px) {
+  .calendar-grid {
+    gap: 2px;
+  }
+
+  .cell {
+    min-height: 40px;
+    padding: 2px;
+    border-radius: 4px;
+  }
+
+  .day {
+    font-size: 0.6rem;
+  }
+
+  .tag {
+    font-size: 0.45rem;
+    padding: 1px 3px;
+  }
+
+  .controls {
+    gap: 8px;
+  }
+
+  .controls button {
+    padding: 4px 10px;
+    font-size: 0.8rem;
+  }
+}
