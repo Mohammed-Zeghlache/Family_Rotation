@@ -3,8 +3,8 @@ import './App.css';
 
 function App() {
   // ----- CONFIGURATION -----
-  const startDate = new Date(2026, 5, 30);
-  const members = ["Fathi", "Fouziya", "Mejda", "Hamza"];
+  const startDate = new Date(2026, 9, 15);
+  const members = ["Fathi", "Fouziya", "Hamza"];
   const DAYS_PER_PERSON = 3;
 
   const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
